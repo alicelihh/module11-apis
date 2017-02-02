@@ -11,11 +11,12 @@ library(jsonlite)
 
 # For what years does the API have statistical data?
 years <- GET("http://data.unhcr.org/api/stats/time_series_years.json")
-print(years)
+fromJSON(content(years, "text"))
 
 # What is the "country code" for the "Syrian Arab Republic"?
-
-
+body <- GET("http://data.unhcr.org/api/countries/list.json")
+body %>% filter("Syrian Arab Republic") %>% 
+  select(country_code)
 # How many persons of concern from Syria applied for residence in the USA in 2013?
 # Hint: you'll need to use a query parameter
 # Use the `str()` function to print the data of interest
